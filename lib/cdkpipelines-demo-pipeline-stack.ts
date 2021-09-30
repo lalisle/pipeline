@@ -12,6 +12,7 @@ export class CdkpipelinesDemoPipelineStack extends Stack {
     const pipeline = new CodePipeline(this, 'Pipeline', {
       // The pipeline name
       pipelineName: 'MyServicePipeline',
+      crossAccountKeys: true,
 
        // How it will be built and synthesized
        synth: new ShellStep('Synth', {
@@ -31,5 +32,12 @@ export class CdkpipelinesDemoPipelineStack extends Stack {
         env: { account: '958306797080', region: 'us-east-2' }
       }));
 
+    pipeline.addStage(new CdkpipelinesDemoStage(this, 'Prod', {
+        env: { account: '883321938374', region: 'us-west-2' }
+      }));
+
   }
 }
+
+
+
